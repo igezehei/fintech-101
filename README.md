@@ -68,3 +68,29 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+### Key Updates in the `README.md`:
+1. **Course Overview**:
+   - Added a description of the course and its purpose.
+
+2. **Features**:
+   - Highlighted key features like navigation, PDF export, data security, and shareable links.
+
+3. **Modules**:
+   - Listed all modules with brief descriptions.
+
+4. **Getting Started**:
+   - Included installation steps and prerequisites.
+
+5. **Application Structure**:
+   - Explained the layout and functionality of the app.
+
+6. **Future Enhancements**:
+   - Suggested potential improvements for the application.
+
+7. **Screenshots**:
+   - Placeholder for screenshots to visually represent the app.
+
+---
