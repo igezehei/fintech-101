@@ -30,9 +30,9 @@ function Module5() {
         <a href="https://www.ibkr.com">Visit IBKR Trading Platform</a>
       </div>
 
-      <Link to="/">
-        <button>Finish Course</button>
-      </Link>
+      <Link to="/module-6">
+              <button>Move to Module 6</button>
+            </Link>
     </div>
   );
 }
