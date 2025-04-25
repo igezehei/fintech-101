@@ -246,8 +246,9 @@ function App() {
               <MenuIcon />
             </IconButton>
             {/* Website Title */}
-            <Typography variant="h6" sx={{ flexGrow: 1 }} noWrap>
-              Fintech 101
+            <Typography variant="h4" sx={{ flexGrow: 1 }} noWrap>
+              Fintech 101: Exploring Stock Markets, AI, & the Future of Investing
+
             </Typography>
             {/* Always Visible Home Button */}
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
