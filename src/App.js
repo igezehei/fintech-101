@@ -26,7 +26,7 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; // For Module 7
 function Home() {
   return (
     <Container>
-      {/* Section 1: Introduction */}
+      {/* Section 1: Introduction with visuals */}
       <Box sx={{ marginBottom: 4 }}>
         <Typography variant="h5" gutterBottom>
           Introduction
@@ -35,6 +35,13 @@ function Home() {
           This course is designed to introduce you to the fundamentals of investing and the stock market. 
           Whether you're a beginner or looking to refresh your knowledge, this course will provide you with the tools and insights you need to make informed investment decisions.
         </Typography>
+        {/* Investment Visuals */}
+        <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
+          <img src={`${process.env.PUBLIC_URL}/images/stocksgrowth.png`} alt="Stock Market Growth" width={200} />
+          <img src={`${process.env.PUBLIC_URL}/images/familylearningtoinvest.png`} alt="Family Learning to Invest" width={200} />
+          <img src={`${process.env.PUBLIC_URL}/images/kidssavingmoney.png`} alt="Kids Saving Money" width={200} />
+          <img src={`${process.env.PUBLIC_URL}/images/aifintec.png`} alt="AI in Finance" width={200} />
+        </Box>
       </Box>
 
       {/* Section 2: What You'll Learn */}
@@ -138,6 +145,7 @@ function Home() {
     </Container>
   );
 }
+
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
