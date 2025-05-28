@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText, IconButton, Box, CssBaseline, Menu, MenuItem, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText, IconButton, Box, CssBaseline, Menu, MenuItem, Container, createTheme, ThemeProvider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -22,6 +23,40 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp'; // For Module 4
 import ShieldIcon from '@mui/icons-material/Shield'; // For Module 5
 import SmartToyIcon from '@mui/icons-material/SmartToy'; // For Module 6
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; // For Module 7
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#ff4081',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#333333',
+      secondary: '#666666',
+    },
+  },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 600,
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.5,
+    },
+  },
+});
 
 function Home() {
   return (
@@ -150,6 +185,13 @@ function Home() {
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/data")
+      .then(response => setData(response.data))
+      .catch(error => console.error("Error fetching data:", error));
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -189,49 +231,49 @@ function App() {
     <Box sx={{ width: drawerWidth }}>
       <List>
         {/* Home */}
-        <ListItem button component={Link} to="/">
+        <ListItem button="true" component={Link} to="/">
           <HomeIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Home" />
         </ListItem>
 
         {/* Module 1: Introduction to Investing */}
-        <ListItem button component={Link} to="/module-1">
+        <ListItem button="true" component={Link} to="/module-1">
           <AccountBalanceIcon sx={{ marginRight: 2 }} /> {/* Represents finance and investing */}
           <ListItemText primary="Module 1: Introduction to Investing" />
         </ListItem>
 
         {/* Module 2: Understanding Stocks */}
-        <ListItem button component={Link} to="/module-2">
+        <ListItem button="true" component={Link} to="/module-2">
           <ShowChartIcon sx={{ marginRight: 2 }} /> {/* Represents stock market trends */}
           <ListItemText primary="Module 2: Understanding Stocks" />
         </ListItem>
 
         {/* Module 3: Stock Market Basics */}
-        <ListItem button component={Link} to="/module-3">
+        <ListItem button="true" component={Link} to="/module-3">
           <BarChartIcon sx={{ marginRight: 2 }} /> {/* Represents stock market basics */}
           <ListItemText primary="Module 3: Stock Market Basics" />
         </ListItem>
 
         {/* Module 4: Investment Strategies */}
-        <ListItem button component={Link} to="/module-4">
+        <ListItem button="true" component={Link} to="/module-4">
           <TrendingUpIcon sx={{ marginRight: 2 }} /> {/* Represents growth and strategies */}
           <ListItemText primary="Module 4: Investment Strategies" />
         </ListItem>
 
         {/* Module 5: Risk Management */}
-        <ListItem button component={Link} to="/module-5">
+        <ListItem button="true" component={Link} to="/module-5">
           <ShieldIcon sx={{ marginRight: 2 }} /> {/* Represents protection and risk management */}
           <ListItemText primary="Module 5: Risk Management" />
         </ListItem>
 
         {/* Module 6: AI in Stock Markets */}
-        <ListItem button component={Link} to="/module-6">
+        <ListItem button="true" component={Link} to="/module-6">
           <SmartToyIcon sx={{ marginRight: 2 }} /> {/* Represents AI and technology */}
           <ListItemText primary="Module 6: AI in Stock Markets" />
         </ListItem>
 
         {/* Module 7: The Future of Investing */}
-        <ListItem button component={Link} to="/module-7">
+        <ListItem button="true" component={Link} to="/module-7">
           <RocketLaunchIcon sx={{ marginRight: 2 }} /> {/* Represents innovation and the future */}
           <ListItemText primary="Module 7: The Future of Investing" />
         </ListItem>
@@ -240,90 +282,110 @@ function App() {
   );
 
   return (
-    <Router>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ marginRight: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            {/* Website Title */}
-            <Typography variant="h4" sx={{ flexGrow: 1 }} noWrap>
-              Fintech 101: Exploring Stock Markets, AI, & the Future of Investing
-
-            </Typography>
-            {/* Always Visible Home Button */}
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IconButton color="inherit">
-                <HomeIcon />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ marginRight: 2 }}
+              >
+                <MenuIcon />
               </IconButton>
-            </Link>
-            {/* Dropdown Menu */}
-            <IconButton color="inherit" onClick={handleMenuOpen}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={handleGeneratePDF}>
-                <PictureAsPdfIcon sx={{ marginRight: 2 }} />
-                Generate PDF
-              </MenuItem>
-              <MenuItem onClick={handleHideData}>
-                <VisibilityOffIcon sx={{ marginRight: 2 }} />
-                Hide Data
-              </MenuItem>
-              <MenuItem onClick={handleShareLink}>
-                <ShareIcon sx={{ marginRight: 2 }} />
-                Share Link
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-        </AppBar>
+              {/* Website Title */}
+              <Typography variant="h4" sx={{ flexGrow: 1 }} noWrap>
+                Fintech 101: Exploring Stock Markets, AI, & the Future of Investing
 
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
-          }}
-        >
-          {drawerContent}
-        </Drawer>
+              </Typography>
+              {/* Always Visible Home Button */}
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <IconButton color="inherit">
+                  <HomeIcon />
+                </IconButton>
+              </Link>
+              {/* Dropdown Menu */}
+              <IconButton color="inherit" onClick={handleMenuOpen}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleGeneratePDF}>
+                  <PictureAsPdfIcon sx={{ marginRight: 2 }} />
+                  Generate PDF
+                </MenuItem>
+                <MenuItem onClick={handleHideData}>
+                  <VisibilityOffIcon sx={{ marginRight: 2 }} />
+                  Hide Data
+                </MenuItem>
+                <MenuItem onClick={handleShareLink}>
+                  <ShareIcon sx={{ marginRight: 2 }} />
+                  Share Link
+                </MenuItem>
+                <MenuItem onClick={() => {
+                    axios.get("http://localhost:8080/api/data")
+                        .then(response => alert(response.data))
+                        .catch(error => console.error("Error fetching data:", error));
+                }}>
+                    <ListItemText primary="Fetch Data" />
+                </MenuItem>
+              </Menu>
+            </Toolbar>
+          </AppBar>
 
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            padding: 3,
-            marginTop: 8,
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/module-1" element={<Module1 />} />
-            <Route path="/module-2" element={<Module2 />} />
-            <Route path="/module-3" element={<Module3 />} />
-            <Route path="/module-4" element={<Module4 />} />
-            <Route path="/module-5" element={<Module5 />} />
-            <Route path="/module-6" element={<Module6 />} />
-            <Route path="/module-7" element={<Module7 />} />
-          </Routes>
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
+            }}
+          >
+            {drawerContent}
+          </Drawer>
+
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              padding: 3,
+              marginTop: 8,
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/module-1" element={<Module1 />} />
+              <Route path="/module-2" element={<Module2 />} />
+              <Route path="/module-3" element={<Module3 />} />
+              <Route path="/module-4" element={<Module4 />} />
+              <Route path="/module-5" element={<Module5 />} />
+              <Route path="/module-6" element={<Module6 />} />
+              <Route path="/module-7" element={<Module7 />} />
+            </Routes>
+            {/* Display Fetched Data */}
+            <Box sx={{ marginTop: 4 }}>
+              <Typography variant="h5" gutterBottom>
+                Data from Backend:
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                {data}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }
 

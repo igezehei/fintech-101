@@ -1,0 +1,22 @@
+{
+  "name": "Fintech Backend API",
+  "version": "1.0.0",
+  "description": "API documentation for Fintech Backend",
+  "paths": {
+    "/api/data": {
+      "get": {
+        "summary": "Fetch data from the backend",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Hello from the backend!"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
