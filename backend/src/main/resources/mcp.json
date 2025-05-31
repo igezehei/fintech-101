@@ -1,5 +1,5 @@
 {
-  "name": "Fintech Backend API",
+  "name": "Smart FinTech Solutions",
   "version": "1.0.0",
   "description": "API documentation for Fintech Backend",
   "paths": {
@@ -18,5 +18,7 @@
         }
       }
     }
-  }
+  },
+  "projectName": "Smart FinTech Solutions",
+  "repositoryUrl": "https://github.com/example/smart-fintech-solutions"
 }
