@@ -43,13 +43,13 @@ function Module1() {
         </Typography>
 
         <Typography variant="h5" gutterBottom>
-          Real Example: Apple’s Growth Over Time
+          Real Example: Apple's Growth and 2025-2026 Tariff Challenges
         </Typography>
         <Typography variant="body1" paragraph>
-          Apple started in a garage and became one of the world’s biggest companies. Its stock price has grown thousands of times since its early days. People who invested in Apple years ago saw their money grow tremendously because Apple kept creating products people love and kept making profits.
+          Apple started in a garage and became one of the world's biggest companies. Its stock price has grown thousands of times since its early days. People who invested in Apple years ago saw their money grow tremendously because Apple kept creating products people love and kept making profits.
         </Typography>
         <Typography variant="body1" paragraph>
-          Investing in companies like Apple isn’t guaranteed to always make money — the stock price can go up and down. But with smart investing and patience, it’s a powerful way to grow your wealth over time.
+          However, in 2025-2026, Apple faces new challenges. Rising U.S. tariffs on imports from Vietnam, India, and China have increased production costs for iPhones, iPads, and MacBooks. Companies like Apple must choose whether to absorb these costs (reducing profits) or pass them to consumers (raising prices). Understanding how tariff policies affect companies you invest in has become crucial. Investors who recognize these headwinds early can make better decisions about their portfolio. Investing in companies like Apple isn't guaranteed to always make money — the stock price can go up and down based on both company performance and macroeconomic factors like trade policy. But with smart investing and patience, it's a powerful way to grow your wealth over time.
         </Typography>
 
         <Typography variant="h5" gutterBottom>

@@ -67,8 +67,9 @@ function Home() {
           Introduction
         </Typography>
         <Typography variant="body1" align="left" gutterBottom>
-          This course is designed to introduce you to the fundamentals of investing and the stock market. 
-          Whether you're a beginner or looking to refresh your knowledge, this course will provide you with the tools and insights you need to make informed investment decisions.
+          This course is designed to introduce you to the fundamentals of investing and the stock market in 2025-2026. 
+          As we navigate a changing global economy marked by tariff policies, geopolitical tensions, and technological innovation, understanding these dynamics is critical for making informed investment decisions. 
+          Whether you're a beginner or looking to refresh your knowledge, this course will equip you with the tools and insights needed to invest strategically in today's complex market environment.
         </Typography>
         {/* Investment Visuals */}
         <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
@@ -87,17 +88,17 @@ function Home() {
         <ul>
           <li>
             <Typography variant="body1">
-              The basics of investing and how to get started.
+              The basics of investing and how to get started in 2025-2026's evolving market.
             </Typography>
           </li>
           <li>
             <Typography variant="body1">
-              Understanding stocks and how the stock market works.
+              Understanding stocks, global supply chains, and how tariff policies impact market movements.
             </Typography>
           </li>
           <li>
             <Typography variant="body1">
-              Key investment strategies to grow your wealth.
+              Key investment strategies tailored for a volatile, interconnected global economy with shifting trade policies.
             </Typography>
           </li>
           <li>

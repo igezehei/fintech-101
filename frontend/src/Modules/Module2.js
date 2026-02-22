@@ -25,13 +25,22 @@ function Module2() {
 
             <h2>📊 Lesson 2: Why Do Stock Prices Go Up and Down?</h2>
             <p>Quick Take: Stock prices change based on supply and demand — what people think the company is worth now and in the future.</p>
-            <p><strong>Example:</strong> If Apple drops a new product everyone loves, more people want the stock → price goes up.</p>
+            <p><strong>Example:</strong> If Apple drops a new product everyone loves, more people want the stock → price goes up. But if new U.S. tariffs on Chinese imports are announced in 2025, the stock might drop because investors worry about higher production costs.</p>
             <ul>
                 <li>News headlines 📺</li>
                 <li>Earnings reports 📈</li>
                 <li>Rumors & hype 🗣</li>
-                <li>World events 🌍</li>
+                <li>World events 🌍 <strong>(including trade policies and tariffs)</strong></li>
+                <li>Geopolitical tensions & supply chain disruptions 🌐</li>
                 <li>Human emotions 😬</li>
+            </ul>
+            <h3>2025-2026 Update: Tariffs & Global Trade</h3>
+            <p>In 2025-2026, U.S. tariff policies have become a major driver of stock prices. For instance:</p>
+            <ul>
+                <li><strong>Manufacturing stocks:</strong> Companies importing raw materials face higher costs. Semiconductor stocks tumbled when 25% tariffs on Chinese chips were proposed.</li>
+                <li><strong>Retail stocks:</strong> Stores like Target and Walmart see thinner margins because clothing and goods from overseas become more expensive.</li>
+                <li><strong>Tech stocks:</strong> Firms like Apple, Intel, and NVIDIA have exposure to Asian supply chains. Tariff announcements cause immediate price swings.</li>
+                <li><strong>Emerging markets:</strong> If the U.S. imposes tariffs, trading partners (Vietnam, India, Mexico) retaliate, creating uncertainty.</li>
             </ul>
 
             <h2>💹 Lesson 3: What Is the Stock Market?</h2>

@@ -9,9 +9,20 @@ function Module6() {
       <div>
         <h3>Key Concepts:</h3>
         <ul>
-          <li>Algorithmic Trading: Using AI to execute trades based on pre-defined criteria.</li>
-          <li>Predictive Analytics: Leveraging AI to forecast stock price movements.</li>
-          <li>Robo-Advisors: AI-powered tools that provide automated investment advice.</li>
+          <li>Algorithmic Trading: Using AI to execute trades based on pre-defined criteria (including tariff announcements).</li>
+          <li>Predictive Analytics: Leveraging AI to forecast stock price movements and geopolitical impacts.</li>
+          <li>Robo-Advisors: AI-powered tools that provide automated investment advice, adjusted for macro risks.</li>
+          <li>NLP (Natural Language Processing): AI analyzing trade policy announcements, earnings calls, and global news to predict market reactions.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>2025-2026 Application: AI & Tariff Analysis</h3>
+        <p>AI is increasingly critical in 2025-2026 due to tariff volatility. Here's how:</p>
+        <ul>
+          <li><strong>Tariff Monitoring:</strong> AI systems scan government announcements (USTR, Congress) in real-time and predict impacts on specific sectors.</li>
+          <li><strong>Supply Chain Optimization:</strong> Companies use AI to reroute manufacturing from tariff-heavy countries (China) to tariff-free zones (Africa, Central America).</li>
+          <li><strong>Sentiment Analysis:</strong> AI reads earnings calls and social media to gauge investor anxiety about tariff policies, predicting market volatility before it happens.</li>
+          <li><strong>Hedging Strategies:</strong> Robo-advisors automatically adjust portfolios when tariff risks spike, reducing exposure to vulnerable sectors.</li>
         </ul>
       </div>
 
