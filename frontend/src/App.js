@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText, IconButton, Box, CssBaseline, Menu, MenuItem, Container, createTheme, ThemeProvider } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Box,
+  CssBaseline,
+  Menu,
+  MenuItem,
+  Container,
+  createTheme,
+  ThemeProvider,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ShareIcon from '@mui/icons-material/Share';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import ShieldIcon from '@mui/icons-material/Shield';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { jsPDF } from 'jspdf';
 import Module1 from './Modules/Module1';
 import Module2 from './Modules/Module2';
@@ -16,13 +39,9 @@ import Module4 from './Modules/Module4';
 import Module5 from './Modules/Module5';
 import Module6 from './Modules/Module6';
 import Module7 from './Modules/Module7';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'; // For Module 1
-import ShowChartIcon from '@mui/icons-material/ShowChart'; // For Module 2
-import BarChartIcon from '@mui/icons-material/BarChart'; // For Module 3
-import TrendingUpIcon from '@mui/icons-material/TrendingUp'; // For Module 4
-import ShieldIcon from '@mui/icons-material/Shield'; // For Module 5
-import SmartToyIcon from '@mui/icons-material/SmartToy'; // For Module 6
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; // For Module 7
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+const API_DATA_ENDPOINT = `${API_BASE_URL}/api/data`;
 
 const theme = createTheme({
   palette: {
@@ -57,6 +76,9 @@ const theme = createTheme({
     },
   },
 });
+
+const DRAWER_WIDTH = 240;
+const LINK_STYLE = { textDecoration: 'none', color: '#1976d2' };
 
 function Home() {
   return (
@@ -142,37 +164,37 @@ function Home() {
         </Typography>
         <ul>
           <li>
-            <Link to="/module-1" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-1" style={LINK_STYLE}>
               Module 1: Introduction to Investing
             </Link>
           </li>
           <li>
-            <Link to="/module-2" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-2" style={LINK_STYLE}>
               Module 2: Understanding Stocks
             </Link>
           </li>
           <li>
-            <Link to="/module-3" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-3" style={LINK_STYLE}>
               Module 3: Stock Market Basics
             </Link>
           </li>
           <li>
-            <Link to="/module-4" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-4" style={LINK_STYLE}>
               Module 4: Investment Strategies
             </Link>
           </li>
           <li>
-            <Link to="/module-5" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-5" style={LINK_STYLE}>
               Module 5: Risk Management
             </Link>
           </li>
           <li>
-            <Link to="/module-6" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-6" style={LINK_STYLE}>
               Module 6: AI in Stock Markets
             </Link>
           </li>
           <li>
-            <Link to="/module-7" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            <Link to="/module-7" style={LINK_STYLE}>
               Module 7: The Future of Investing
             </Link>
           </li>
@@ -189,9 +211,15 @@ function App() {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/data")
-      .then(response => setData(response.data))
-      .catch(error => console.error("Error fetching data:", error));
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(API_DATA_ENDPOINT);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleDrawerToggle = () => {
@@ -207,11 +235,16 @@ function App() {
   };
 
   const handleGeneratePDF = () => {
-    const doc = new jsPDF();
-    doc.text('Fintech 101: Exploring Stock Markets, AI, & the Future of Investing', 10, 10);
-    doc.text('This is a sample PDF containing all the course content.', 10, 20);
-    doc.save('fintech101.pdf');
-    handleMenuClose();
+    try {
+      const doc = new jsPDF();
+      doc.text('Fintech 101: Exploring Stock Markets, AI, & the Future of Investing', 10, 10);
+      doc.text('This is a sample PDF containing all the course content.', 10, 20);
+      doc.save('fintech101.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      handleMenuClose();
+    }
   };
 
   const handleHideData = () => {
@@ -219,63 +252,58 @@ function App() {
     handleMenuClose();
   };
 
-  const handleShareLink = () => {
-    const shareableLink = window.location.href;
-    navigator.clipboard.writeText(shareableLink);
-    alert('Link copied to clipboard! Share it with others.');
-    handleMenuClose();
+  const handleShareLink = async () => {
+    try {
+      const shareableLink = window.location.href;
+      await navigator.clipboard.writeText(shareableLink);
+      alert('Link copied to clipboard! Share it with others.');
+    } catch (error) {
+      console.error('Error copying to clipboard:', error);
+    } finally {
+      handleMenuClose();
+    }
   };
 
-  const drawerWidth = 240;
-
   const drawerContent = (
-    <Box sx={{ width: drawerWidth }}>
+    <Box sx={{ width: DRAWER_WIDTH }}>
       <List>
-        {/* Home */}
-        <ListItem button="true" component={Link} to="/">
+        <ListItem button component={Link} to="/">
           <HomeIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Home" />
         </ListItem>
 
-        {/* Module 1: Introduction to Investing */}
-        <ListItem button="true" component={Link} to="/module-1">
-          <AccountBalanceIcon sx={{ marginRight: 2 }} /> {/* Represents finance and investing */}
+        <ListItem button component={Link} to="/module-1">
+          <AccountBalanceIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 1: Introduction to Investing" />
         </ListItem>
 
-        {/* Module 2: Understanding Stocks */}
-        <ListItem button="true" component={Link} to="/module-2">
-          <ShowChartIcon sx={{ marginRight: 2 }} /> {/* Represents stock market trends */}
+        <ListItem button component={Link} to="/module-2">
+          <ShowChartIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 2: Understanding Stocks" />
         </ListItem>
 
-        {/* Module 3: Stock Market Basics */}
-        <ListItem button="true" component={Link} to="/module-3">
-          <BarChartIcon sx={{ marginRight: 2 }} /> {/* Represents stock market basics */}
+        <ListItem button component={Link} to="/module-3">
+          <BarChartIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 3: Stock Market Basics" />
         </ListItem>
 
-        {/* Module 4: Investment Strategies */}
-        <ListItem button="true" component={Link} to="/module-4">
-          <TrendingUpIcon sx={{ marginRight: 2 }} /> {/* Represents growth and strategies */}
+        <ListItem button component={Link} to="/module-4">
+          <TrendingUpIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 4: Investment Strategies" />
         </ListItem>
 
-        {/* Module 5: Risk Management */}
-        <ListItem button="true" component={Link} to="/module-5">
-          <ShieldIcon sx={{ marginRight: 2 }} /> {/* Represents protection and risk management */}
+        <ListItem button component={Link} to="/module-5">
+          <ShieldIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 5: Risk Management" />
         </ListItem>
 
-        {/* Module 6: AI in Stock Markets */}
-        <ListItem button="true" component={Link} to="/module-6">
-          <SmartToyIcon sx={{ marginRight: 2 }} /> {/* Represents AI and technology */}
+        <ListItem button component={Link} to="/module-6">
+          <SmartToyIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 6: AI in Stock Markets" />
         </ListItem>
 
-        {/* Module 7: The Future of Investing */}
-        <ListItem button="true" component={Link} to="/module-7">
-          <RocketLaunchIcon sx={{ marginRight: 2 }} /> {/* Represents innovation and the future */}
+        <ListItem button component={Link} to="/module-7">
+          <RocketLaunchIcon sx={{ marginRight: 2 }} />
           <ListItemText primary="Module 7: The Future of Investing" />
         </ListItem>
       </List>
@@ -298,18 +326,14 @@ function App() {
               >
                 <MenuIcon />
               </IconButton>
-              {/* Website Title */}
               <Typography variant="h4" sx={{ flexGrow: 1 }} noWrap>
                 Fintech 101: Exploring Stock Markets, AI, & the Future of Investing
-
               </Typography>
-              {/* Always Visible Home Button */}
               <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <IconButton color="inherit">
                   <HomeIcon />
                 </IconButton>
               </Link>
-              {/* Dropdown Menu */}
               <IconButton color="inherit" onClick={handleMenuOpen}>
                 <MoreVertIcon />
               </IconButton>
@@ -330,12 +354,18 @@ function App() {
                   <ShareIcon sx={{ marginRight: 2 }} />
                   Share Link
                 </MenuItem>
-                <MenuItem onClick={() => {
-                    axios.get("http://localhost:8080/api/data")
-                        .then(response => alert(response.data))
-                        .catch(error => console.error("Error fetching data:", error));
-                }}>
-                    <ListItemText primary="Fetch Data" />
+                <MenuItem
+                  onClick={async () => {
+                    try {
+                      const response = await axios.get(API_DATA_ENDPOINT);
+                      alert(response.data);
+                    } catch (error) {
+                      console.error('Error fetching data:', error);
+                    }
+                    handleMenuClose();
+                  }}
+                >
+                  <ListItemText primary="Fetch Data" />
                 </MenuItem>
               </Menu>
             </Toolbar>
@@ -349,7 +379,7 @@ function App() {
               keepMounted: true,
             }}
             sx={{
-              '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
+              '& .MuiDrawer-paper': { width: DRAWER_WIDTH, boxSizing: 'border-box' },
             }}
           >
             {drawerContent}

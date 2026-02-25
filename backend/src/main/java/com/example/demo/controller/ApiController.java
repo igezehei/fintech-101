@@ -1,4 +1,3 @@
-// Added a sample API endpoint to the backend
 package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
