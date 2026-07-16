@@ -11,6 +11,7 @@ import {
   ListItemText,
   IconButton,
   Box,
+  Button,
   CssBaseline,
   Menu,
   MenuItem,
@@ -18,6 +19,7 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -206,6 +208,7 @@ function Home() {
 
 
 function App() {
+  const { isAuthenticated, user, loginWithRedirect, logout, getAccessTokenSilently, isLoading } = useAuth0();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [data, setData] = useState("");
@@ -213,14 +216,19 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_DATA_ENDPOINT);
+        const headers = {};
+        if (isAuthenticated) {
+          const token = await getAccessTokenSilently();
+          headers.Authorization = `Bearer ${token}`;
+        }
+        const response = await axios.get(API_DATA_ENDPOINT, { headers });
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData();
-  }, []);
+    if (!isLoading) fetchData();
+  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -334,6 +342,28 @@ function App() {
                   <HomeIcon />
                 </IconButton>
               </Link>
+              {!isLoading && (
+                isAuthenticated ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mr: 1 }}>
+                    <Typography variant="body2" sx={{ color: 'inherit' }}>
+                      {user.name}
+                    </Typography>
+                    <Button
+                      color="inherit"
+                      size="small"
+                      variant="outlined"
+                      sx={{ borderColor: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap' }}
+                      onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                    >
+                      Logout
+                    </Button>
+                  </Box>
+                ) : (
+                  <Button color="inherit" onClick={() => loginWithRedirect()} sx={{ mr: 1 }}>
+                    Login
+                  </Button>
+                )
+              )}
               <IconButton color="inherit" onClick={handleMenuOpen}>
                 <MoreVertIcon />
               </IconButton>
